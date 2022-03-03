@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import Register from 'features/Auth/components/Register';
 import DashboardFeature from 'features/Dashboard';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
 
 function App() {
   // get login state from redux store
   // const loggedIn = useSelector(state => state.user.loggedIn);
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <div className="app">
@@ -20,10 +19,14 @@ function App() {
       ) : (
         // UnAuthenticated routes go here
         <Routes>
-          <Route path="/login" element={null} />
+          <Route path="/login" element={<h1>Hihi, under construction 😁</h1>} />
+          <Route
+            path="/register"
+            element={<Register onSuccess={() => console.log('register successfully!!')} />}
+          />
 
           {/* all other routes redirect to /login */}
-          <Route path="/*" element={<Navigate to="/login" />} />
+          <Route path="/*" element={<Navigate to="/register" />} />
         </Routes>
       )}
       {/* all other public routes go below here */}

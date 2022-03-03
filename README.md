@@ -18,6 +18,14 @@ src
 |  |__ index.js (entry point export all constants from .js files)
 |
 |__ components (shared components between features)
+|  |__ form-controls
+|  |  |__ InputField / index.jsx
+|  |  |
+|  |  |__ PasswordField / index.jsx
+|  |
+|  |__ Loading
+|     |__ index.jsx
+|
 |  |__ Loading
 |     |__ index.jsx
 |     |__ styles.scss
