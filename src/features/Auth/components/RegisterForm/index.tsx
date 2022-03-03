@@ -9,8 +9,8 @@ import * as yup from 'yup';
 export interface RegisterFormValues {
   fullName: string;
   email: string;
-  // password: string;
-  // confirmPassword: string;
+  password: string;
+  confirmPassword: string;
 }
 
 interface RegisterFormProps {
@@ -27,23 +27,23 @@ function RegisterForm({ onSubmit }: RegisterFormProps) {
 
     email: yup.string().required('Please enter your email').email('Please enter a valid email'),
 
-    // password: yup
-    //   .string()
-    //   .required('Please enter your password')
-    //   .min(6, 'Please enter at least 6 characters'),
+    password: yup
+      .string()
+      .required('Please enter your password')
+      .min(6, 'Please enter at least 6 characters'),
 
-    // confirmPassword: yup
-    //   .string()
-    //   .required('Please retype your password')
-    //   .equals([yup.ref('password')], 'Password does not match'), // alias to .oneOf()
+    confirmPassword: yup
+      .string()
+      .required('Please retype your password')
+      .equals([yup.ref('password')], 'Password does not match'), // alias to .oneOf()
   });
 
   const form = useForm({
     defaultValues: {
       fullName: '',
       email: '',
-      // password: '',
-      // confirmPassword: '',
+      password: '',
+      confirmPassword: '',
     },
     resolver: yupResolver(schema),
   });
@@ -61,8 +61,8 @@ function RegisterForm({ onSubmit }: RegisterFormProps) {
       <form onSubmit={form.handleSubmit(handleFormSubmit)}>
         <InputField name="fullName" label="Full Name" form={form} />
         <InputField name="email" label="Email" form={form} />
-        {/* <PasswordField name="password" label="Password" form={form} />
-        <PasswordField name="confirmPassword" label="Confirm Password" form={form} /> */}
+        <PasswordField name="password" label="Password" form={form} />
+        <PasswordField name="confirmPassword" label="Confirm Password" form={form} />
 
         <Button
           disabled={isSubmitting}

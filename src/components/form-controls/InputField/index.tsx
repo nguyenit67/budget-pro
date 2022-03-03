@@ -1,8 +1,7 @@
-import React from 'react';
+import { TextField } from '@mui/material';
+import { RegisterFormValues } from 'features/Auth/components/RegisterForm';
 import PropTypes from 'prop-types';
 import { Controller, UseFormReturn } from 'react-hook-form';
-import RegisterForm, { RegisterFormValues } from 'features/Auth/components/RegisterForm';
-import { TextField } from '@mui/material';
 
 interface InputFieldProps {
   name: keyof RegisterFormValues;
@@ -27,7 +26,7 @@ function InputField(props: InputFieldProps) {
     <Controller
       name={name}
       control={form.control}
-      render={({ field: { onChange, onBlur, value, name }, fieldState: { error }, formState }) => (
+      render={({ field: { onChange, onBlur, value, name }, fieldState: { error } }) => (
         <TextField
           margin="normal"
           variant="outlined"
