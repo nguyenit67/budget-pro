@@ -1,41 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Container, Link, Paper } from '@mui/material';
+import { Box, Container, Paper, Tab, Tabs, Typography } from '@mui/material';
+import { useMatchPatterns } from 'hooks';
 import { NavLink, Outlet } from 'react-router-dom';
 
-interface EntryPageProps {}
+interface AuthBoxProps {}
 
 AuthBox.propTypes = {};
 
-function AuthBox(props: EntryPageProps) {
+function AuthBox(props: AuthBoxProps) {
+  const pathMatch = useMatchPatterns(['/login', '/register']);
+  const currentTab = pathMatch?.pattern?.path;
+
   return (
     // container for page
     <Container sx={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}>
-      <Paper sx={{ maxWidth: 600, p: 2 }}>
-        <Box
-          component="ul"
-          sx={{
-            display: 'flex',
-            flexFlow: 'row nowrap',
-            justifyContent: 'space-around',
+      <Box sx={{ maxWidth: 600, p: 2 }}>
+        <Typography variant="h3">Budget Pro</Typography>
+      </Box>
 
-            p: 0,
-            // width: '100%',
-            listStyleType: 'none',
-          }}
-        >
-          <li>
-            <Link component={NavLink} to="/login" end>
-              Login
-            </Link>
-          </li>
-
-          <li>
-            <Link component={NavLink} to="/register" end>
-              Sign Up
-            </Link>
-          </li>
-        </Box>
+      <Paper sx={{ maxWidth: 550, p: 2 }}>
+        <Tabs value={currentTab} variant="fullWidth">
+          <Tab label="Login" value="/login" component={NavLink} to="/login" />
+          <Tab label="Sign Up" value="/register" component={NavLink} to="/register" />
+        </Tabs>
 
         <Outlet />
       </Paper>
