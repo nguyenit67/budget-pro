@@ -7,14 +7,14 @@ import {
   InputLabel,
   OutlinedInput,
 } from '@mui/material';
-import { RegisterFormValues } from 'features/Auth/components/RegisterForm';
+import { AuthFormValues } from '@types';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import { Controller, FieldError, FormState, UseFormReturn } from 'react-hook-form';
 
 interface PasswordFieldProps {
-  form: UseFormReturn<RegisterFormValues>;
-  name: keyof RegisterFormValues;
+  form: UseFormReturn<object | any>;
+  name: keyof AuthFormValues;
 
   label?: string;
   disabled?: boolean;
@@ -40,8 +40,8 @@ function PasswordField(props: PasswordFieldProps) {
   const { form, name, label, disabled } = props;
   const [thisShowPassword, setThisShowPassword] = useState(false);
 
-  const { errors } = form.formState;
-  const error = errors[name];
+  const { errors } = form.formState; // .errors as Record<string, any> a.k.a object
+  const error: FieldError | undefined = errors[name];
 
   const handleClickShowPassword = () => {
     setThisShowPassword(!thisShowPassword);

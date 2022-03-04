@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-export interface RegisterFormValues {
+export type RegisterFormValues = {
   fullName: string;
   email: string;
   password: string;
   confirmPassword: string;
-}
+};
 
 interface RegisterFormProps {
   onSubmit?: (values: RegisterFormValues) => void;

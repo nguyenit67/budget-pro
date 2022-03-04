@@ -1,18 +1,33 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import LoginForm from '../LoginForm';
+import LoginForm, { LoginFormValues } from '../LoginForm';
 
-Login.propTypes = {};
+// compile time
+interface LoginProps {
+  onSuccess?: () => void;
+}
 
-function Login(props) {
-  const handleSubmit = (values) => {
-    console.log('Form values', values);
+// runtime check
+Login.propTypes = {
+  onSuccess: PropTypes.func,
+};
+
+function Login({ onSuccess }: LoginProps) {
+  const handleSubmit = (values: LoginFormValues) => {
+    console.log('Login form values', values);
+    // TODO
+
+    try {
+      // make login request to firebase
+      if (onSuccess) {
+        onSuccess();
+      }
+    } catch (error) {}
   };
 
   return (
-    <>
+    <div>
       <LoginForm onSubmit={handleSubmit} />
-    </>
+    </div>
   );
 }
 

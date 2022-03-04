@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
-import { RegisterFormValues } from 'features/Auth/components/RegisterForm';
+import { AuthFormValues } from '@types';
 import PropTypes from 'prop-types';
 import { Controller, UseFormReturn } from 'react-hook-form';
 
 interface InputFieldProps {
-  name: keyof RegisterFormValues;
-  form: UseFormReturn<RegisterFormValues>;
+  form: UseFormReturn<any>;
+  name: keyof AuthFormValues;
 
   label?: string;
   disabled?: boolean;
