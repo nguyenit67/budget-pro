@@ -1,8 +1,12 @@
-import { Box, Container, Paper, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Paper, Tab, Tabs, Typography } from '@mui/material';
 import { useMatchPatterns } from 'hooks';
+import { ReactNode } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
-interface AuthBoxProps {}
+interface AuthBoxProps {
+  prepend?: ReactNode;
+  append?: ReactNode;
+}
 
 AuthBox.propTypes = {};
 
@@ -12,20 +16,18 @@ function AuthBox(props: AuthBoxProps) {
 
   return (
     // container for page
-    <Container sx={{ display: 'flex', flexFlow: 'column', alignItems: 'center' }}>
-      <Box sx={{ maxWidth: 600, p: 2 }}>
-        <Typography variant="h3">Budget Pro</Typography>
-      </Box>
+    <Paper sx={{ maxWidth: 550, p: 2 }}>
+      <Tabs value={currentTab} variant="fullWidth">
+        <Tab label="Login" value="/login" component={NavLink} to="/login" />
+        <Tab label="Sign Up" value="/register" component={NavLink} to="/register" />
+      </Tabs>
 
-      <Paper sx={{ maxWidth: 550, p: 2 }}>
-        <Tabs value={currentTab} variant="fullWidth">
-          <Tab label="Login" value="/login" component={NavLink} to="/login" />
-          <Tab label="Sign Up" value="/register" component={NavLink} to="/register" />
-        </Tabs>
+      {props.prepend}
 
-        <Outlet />
-      </Paper>
-    </Container>
+      <Outlet />
+
+      {props.append}
+    </Paper>
   );
 }
 

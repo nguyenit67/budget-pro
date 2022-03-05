@@ -1,33 +1,29 @@
-// Import the functions you need from the SDKs you need
-import firebase from 'firebase/compat/app';
-
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
-// import { getAnalytics } from "firebase/analytics";
+import firebase from 'firebase';
+import { viteEnv } from 'utils';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyDRAoB5d5bD8ILTNATPOxckMM8cOD-yDew',
-  authDomain: 'react-budget-pro.firebaseapp.com',
-  projectId: 'react-budget-pro',
-  storageBucket: 'react-budget-pro.appspot.com',
-  messagingSenderId: '869062877408',
-  appId: '1:869062877408:web:f5754fb9d46256f58df085',
-  measurementId: 'G-35ERTM9L6P',
+  apiKey: viteEnv('REACTAPP_FIREBASE_API_KEY'),
+  authDomain: viteEnv('REACTAPP_FIREBASE_AUTH_DOMAIN'),
+  projectId: viteEnv('REACTAPP_FIREBASE_PROJECT_ID'),
+  storageBucket: viteEnv('REACTAPP_FIREBASE_STORAGE_BUCKET'),
+  messagingSenderId: viteEnv('REACTAPP_FIREBASE_MESSAGING_SENDER_ID'),
+  appId: viteEnv('REACTAPP_FIREBASE_APP_ID'),
+  measurementId: viteEnv('REACTAPP_FIREBASE_MEASUREMENT_ID'),
 };
+
+console.log(firebaseConfig);
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
-debugger;
-export const auth = getAuth(app);
+export const auth = firebase.auth(app);
 
-export const database = getDatabase(app);
+export const database = firebase.database(app);
 
-// const analytics = getAnalytics(app);
+// const analytics = firebase.analytics(app);
 
 // export { auth, database };
