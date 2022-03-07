@@ -1,4 +1,3 @@
-export type Action = {
-  type: string;
-  payload?: any;
-};
+import userApi from 'services/userApi';
+
+export type UserBasicInfo = ReturnType<typeof userApi.getMe>;
