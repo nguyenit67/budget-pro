@@ -10,12 +10,12 @@ const userApi = {
     // Create a user
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     // Update display name
-    await userCredential.user?.updateProfile({ displayName: fullName });
+    return userCredential.user?.updateProfile({ displayName: fullName });
   },
 
   async login(params: LoginFormValues) {
     const { email, password } = params;
-    await auth.signInWithEmailAndPassword(email, password);
+    return auth.signInWithEmailAndPassword(email, password);
   },
 
   getMe() {

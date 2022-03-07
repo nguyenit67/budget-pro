@@ -27,6 +27,7 @@ function App() {
   //     console.log('Single Product fetch', response.data);
   //   })();
   // }, []);
+  console.log('Current user here out in App.tsx', currentUser);
 
   useEffect(() => {
     const unsubscribeAuthObserver = auth.onAuthStateChanged(async (user) => {
@@ -38,10 +39,9 @@ function App() {
 
       console.log('Logged in user', user.displayName);
       try {
-        console.log('getMe action', getMe());
         const actionResult = dispatch(getMe());
         // const currentUser = unwrapResult(actionResult); // this is for async thunk action
-        console.log('Logged in user: ', actionResult, currentUser);
+        // console.log('Logged in user: ', actionResult);
       } catch (error: any) {
         console.log('Failed to login ', error.message);
         // show toast error
@@ -58,7 +58,7 @@ function App() {
       {/* <CssBaseline /> */}
       {isLoggedIn ? ( // protected routes go here
         <Routes>
-          <Route path="/dashboard" element={<DashboardFeature />} />
+          <Route path="/dashboard/*" element={<DashboardFeature />} />
 
           <Route path="/*" element={<Navigate to="/dashboard" />} />
         </Routes>

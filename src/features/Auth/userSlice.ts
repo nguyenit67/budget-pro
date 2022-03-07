@@ -25,8 +25,16 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     getMe(state) {
-      console.log('Inside getMe reducer', state, userApi.getMe());
       state.current = userApi.getMe();
+    },
+  },
+  extraReducers: {
+    [register.fulfilled.type]: (state) => {
+      return state;
+    },
+
+    [login.fulfilled.type]: (state) => {
+      return state;
     },
   },
 });

@@ -1,4 +1,7 @@
+import { unwrapResult } from '@reduxjs/toolkit';
+import { login } from 'features/Auth/userSlice';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import LoginForm, { LoginFormValues } from '../LoginForm';
 
 // compile time
@@ -12,16 +15,25 @@ Login.propTypes = {
 };
 
 function Login({ onSuccess }: LoginProps) {
-  const handleSubmit = (values: LoginFormValues) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values: LoginFormValues) => {
     console.log('Login form values', values);
     // TODO
 
     try {
       // make login request to firebase
+      const action = login(values);
+      const actionResult = await dispatch(action);
+      unwrapResult(actionResult);
+      console.log('Login actionResult', actionResult);
+
       if (onSuccess) {
         onSuccess();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('Failed to login ', error.message);
+    }
   };
 
   return (

@@ -15,8 +15,6 @@ const firebaseConfig = {
   measurementId: viteEnv('REACTAPP_FIREBASE_MEASUREMENT_ID'),
 };
 
-console.log(firebaseConfig);
-
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 

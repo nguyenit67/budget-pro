@@ -1,4 +1,7 @@
+import { unwrapResult } from '@reduxjs/toolkit';
+import { register } from 'features/Auth/userSlice';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import RegisterForm, { RegisterFormValues } from '../RegisterForm';
 
 // compile time
@@ -12,16 +15,25 @@ Register.propTypes = {
 };
 
 function Register({ onSuccess }: RegisterProps) {
-  const handleSubmit = (values: RegisterFormValues) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values: RegisterFormValues) => {
     console.log('Register form values', values);
     // TODO
 
     try {
-      // make register request to firebase
+      // make register action
+      const action = register(values);
+      const actionResult = await dispatch(action);
+      unwrapResult(actionResult);
+      console.log('Register actionResult', actionResult);
+
       if (onSuccess) {
         onSuccess();
       }
-    } catch (error) {}
+    } catch (error: any) {
+      console.log('Failed to register ', error.message);
+    }
   };
 
   return (
