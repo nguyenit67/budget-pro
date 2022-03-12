@@ -24,7 +24,7 @@ function TransactionPage() {
           console.log('transactionsDbRef on value listener');
           const data = snapshot.val();
           // @ts-ignore
-          const transactionList = Object.entries(data).map(([key, value]) => ({
+          const transactionList = Object.entries(data).map(([key, value]: any) => ({
             id: key,
             transactionType: value.transactionType,
             amount: value.amount,

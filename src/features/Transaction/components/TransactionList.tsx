@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { TransactionItem } from '../transactionSlice';
 import { Box } from '@mui/material';
+import { TransactionItem } from '../transactionSlice';
 import TransactionListItem from './TransactionListItem';
 
 type TransactionListProps = {
@@ -17,8 +15,8 @@ function TransactionList({ data }: TransactionListProps) {
         flexDirection: 'column',
         listStyleType: 'none',
 
+        gap: 1, // gap between flex items
         '& > li': { flexBasis: '100%' },
-        gap: 1,
       }}
     >
       {data.map((transaction) => (

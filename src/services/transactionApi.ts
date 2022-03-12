@@ -4,23 +4,26 @@ import { getTransactionsDbRef } from './firebase';
 
 const transactionApi = {
   async add(params: TransactionFormValues) {
-    console.log('transactionApi.add params⌨🖨🖥📀💿💾💻', params);
-
     const transactionsDbRef = await getTransactionsDbRef();
-    params.date = params.date.toISOString();
-    return transactionsDbRef.push(params);
+
+    const newItem = {
+      ...params,
+      date: typeof params.date === 'string' ? params.date : params.date.toISOString(),
+    };
+
+    return transactionsDbRef.push(newItem);
   },
 
-  async update(data: TransactionItem) {
-    const newItem: TransactionFormValues = {
-      transactionType: data.transactionType,
-      category: data.category,
-      amount: data.amount,
-      date: data.date,
+  async updateOne(params: TransactionItem) {
+    const newValue = {
+      transactionType: params.transactionType,
+      category: params.category,
+      amount: params.amount,
+      date: typeof params.date === 'string' ? params.date : params.date.toISOString(),
     };
 
     const transactionsDbRef = await getTransactionsDbRef();
-    return transactionsDbRef.child(data.id).set(newItem);
+    return transactionsDbRef.child(params.id).set(newValue);
   },
 
   async remove(id: TransactionId) {

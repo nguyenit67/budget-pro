@@ -16,6 +16,8 @@ export type TransactionFormValues = {
 
 interface TransactionFormProps {
   onSubmit?: (values: TransactionFormValues) => void;
+  mode?: 'create' | 'update';
+  defaultValues?: TransactionFormValues;
 }
 
 export const TRANSACTION_TYPES = {
@@ -29,7 +31,7 @@ const TRANSACTION_CATEGORIES = {
   [TRANSACTION_TYPES.EXPENSE]: ['Food', 'Clothes', 'Transport', 'Utilities', 'Other'],
 };
 
-function TransactionForm({ onSubmit }: TransactionFormProps) {
+function TransactionForm({ onSubmit, mode = 'create', defaultValues }: TransactionFormProps) {
   const schema = yup.object().shape({
     transactionType: yup
       .string()
@@ -44,20 +46,25 @@ function TransactionForm({ onSubmit }: TransactionFormProps) {
     amount: yup
       .number()
       .required('Please enter quantity')
-      .min(1, 'Minimum value is 1')
+      .min(1, 'Must be greater than zero')
       .integer('Quantity must be a valid number')
       .typeError('Please enter a number'),
 
     date: yup.date().required('Please enter a date').typeError('Please enter a valid date'),
   });
 
+  const formDefaultValues =
+    mode === 'update'
+      ? defaultValues
+      : {
+          transactionType: TRANSACTION_TYPES.INCOME,
+          category: '',
+          amount: 0,
+          date: new Date(),
+        };
+
   const form = useForm({
-    defaultValues: {
-      transactionType: TRANSACTION_TYPES.INCOME,
-      category: '',
-      amount: 0,
-      date: new Date(),
-    },
+    defaultValues: formDefaultValues,
     resolver: yupResolver(schema),
   });
 
@@ -116,7 +123,7 @@ function TransactionForm({ onSubmit }: TransactionFormProps) {
           fullWidth
           size="large"
         >
-          Create a transaction
+          {mode === 'create' ? 'Create a transaction' : 'Update transaction'}
         </Button>
       </form>
     </Box>
