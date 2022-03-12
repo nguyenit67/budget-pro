@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 import { viteEnv } from 'utils';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,6 +24,44 @@ export const auth = firebase.auth(app);
 
 export const database = firebase.database(app);
 
-// const analytics = firebase.analytics(app);
+export const dbRootRef = database.ref();
 
-// export { auth, database };
+const getUserUid = async () => {
+  // console.log('start getUserUid');
+  const currentUser = auth.currentUser;
+  if (currentUser) {
+    return currentUser.uid;
+  }
+  // Not logged in
+  // check in local (localStorage or IndexedDB) if firebase-loggedin is null
+  const hasRememberedAccount = true; // we assume if it still there
+  if (!hasRememberedAccount) return null;
+
+  // Logged in but currentUser is not fetched --> wait (10s)
+  return new Promise((resolve, reject) => {
+    const waitTimer = setTimeout(() => {
+      reject(null);
+      console.log('Reject timeout getFirebaseToken');
+    }, 10000);
+
+    const unsubscribeAuthObserver = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        return reject(null);
+      }
+
+      const userUid = user.uid;
+      console.log('[AXIOS] Logged in user Uid', userUid);
+      resolve(userUid);
+
+      unsubscribeAuthObserver();
+      clearTimeout(waitTimer);
+    });
+  });
+};
+
+export const getTransactionsDbRef = async () => {
+  const currentUserUid = await getUserUid();
+  return database.ref(`users/${currentUserUid}/transactions`);
+};
+
+console.log('firebase.ts', auth.currentUser);

@@ -1,16 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { MonetizationOn } from '@mui/icons-material';
+import { AppBar, Avatar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import { RootState } from 'app/store';
+import { useSelector } from 'react-redux';
 
-Header.propTypes = {
-  
-}
+Header.propTypes = {};
 
-function Header(props) {
-  
+function Header() {
+  const currentUser = useSelector((state: RootState) => state.user.current);
+
   return (
-    <div>
-      
-    </div>
+    <Box>
+      <AppBar position="static">
+        <Toolbar>
+          <MonetizationOn />
+
+          <Typography variant="h6" textAlign="center" flexGrow={1}>
+            Budget Pro
+          </Typography>
+
+          <IconButton>
+            <Avatar src={currentUser?.photoUrl} />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
 

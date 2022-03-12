@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { auth } from './firebase';
 
 const getFirebaseToken = async () => {
-  console.log('start getFirebaseToken');
+  // console.log('start getFirebaseToken');
   const currentUser = auth.currentUser;
   if (currentUser) {
     return currentUser.getIdToken();

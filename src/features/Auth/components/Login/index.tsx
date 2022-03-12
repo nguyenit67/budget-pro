@@ -31,7 +31,7 @@ function Login({ onSuccess }: LoginProps) {
       if (onSuccess) {
         onSuccess();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log('Failed to login ', error.message);
     }
   };

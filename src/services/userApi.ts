@@ -1,8 +1,6 @@
 import { LoginFormValues } from 'features/Auth/components/LoginForm';
 import { RegisterFormValues } from 'features/Auth/components/RegisterForm';
 import { auth } from './firebase';
-import firebase from 'firebase';
-import { UserBasicInfo } from '@types';
 
 const userApi = {
   async register(params: RegisterFormValues) {
