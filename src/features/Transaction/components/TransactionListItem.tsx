@@ -13,7 +13,6 @@ type TransactionListItemProps = {
 };
 
 function TransactionListItem({ transaction }: TransactionListItemProps) {
-  const dispatch = useDispatch();
   const [openTransactionEdit, setOpenTransactionEdit] = useState(false);
 
   const handleTransactionFormUpdateSubmit = async (values: TransactionFormValues) => {
@@ -88,8 +87,13 @@ function TransactionListItem({ transaction }: TransactionListItemProps) {
             }}
           />
 
-          <Box textAlign="center">
-            <Button color="warning" onClick={() => setOpenTransactionEdit(false)} fullWidth>
+          <Box textAlign="center" mt={1}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setOpenTransactionEdit(false)}
+              fullWidth
+            >
               Cancel edit
             </Button>
           </Box>
