@@ -1,10 +1,11 @@
-import { Box } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTransactionsDbRef } from 'services/firebase';
 import transactionApi from 'services/transactionApi';
 import TransactionForm, { TransactionFormValues } from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
+import TransactionPieChart from '../components/TransactionPieChart';
 import { selectTransactions } from '../selectors';
 import { setTransactions } from '../transactionSlice';
 
@@ -62,11 +63,16 @@ function TransactionPage() {
   return (
     <Box
       sx={{
+        // flex: '1 1 auto',
+
         display: 'flex',
-        flexFlow: 'row wrap',
+        flexFlow: 'row nowrap',
         justifyContent: 'space-around',
 
-        '& > *': { flexBasis: '33.33%' },
+        overflow: 'auto',
+
+        gap: 2,
+        '& > *': { flexBasis: '33.33%', width: '33.33%' },
       }}
     >
       <Box>
@@ -75,7 +81,31 @@ function TransactionPage() {
 
       <TransactionList data={transactionList} />
 
-      <Box flexBasis="100%"></Box>
+      <Box
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexFlow: 'column',
+
+          overflow: 'hidden',
+
+          gap: 1,
+          '& > *': {
+            flex: '1 1 auto',
+            // flexBasis: '50%',
+            height: '50%',
+            m: 1,
+            p: 1,
+          },
+        }}
+      >
+        <Paper sx={{}} elevation={2}>
+          <TransactionPieChart transactionType="Income" />
+        </Paper>
+        <Paper sx={{}} elevation={2}>
+          <TransactionPieChart transactionType="Expense" />
+        </Paper>
+      </Box>
     </Box>
   );
 }

@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button } from '@mui/material';
+import { TransactionTypeValues, ValueOf } from '@types';
 import DateField from 'components/form-controls/DateField';
 import NumberField from 'components/form-controls/NumberField';
 import SelectField from 'components/form-controls/SelectField';
@@ -20,12 +21,12 @@ interface TransactionFormProps {
   defaultValues?: TransactionFormValues;
 }
 
-export const TRANSACTION_TYPES = {
+export const TRANSACTION_TYPES: TransactionTypeValues = {
   INCOME: 'Income',
   EXPENSE: 'Expense',
 };
 
-const TRANSACTION_CATEGORIES = {
+export const TRANSACTION_CATEGORIES: Record<string, string[]> = {
   [TRANSACTION_TYPES.INCOME]: ['Salary', 'Bonus', 'Gift', 'Investment', 'Other'],
 
   [TRANSACTION_TYPES.EXPENSE]: ['Food', 'Clothes', 'Transport', 'Utilities', 'Other'],
@@ -80,7 +81,7 @@ function TransactionForm({ onSubmit, mode = 'create', defaultValues }: Transacti
   const handleFormSubmit = async (values: TransactionFormValues) => {
     if (onSubmit) {
       await onSubmit(values);
-      form.reset();
+      // form.reset();
       form.setValue('date', new Date());
     }
   };

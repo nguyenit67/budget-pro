@@ -14,7 +14,7 @@ function Header() {
         <Toolbar>
           <MonetizationOn />
 
-          <Typography variant="h6" textAlign="center" flexGrow={1}>
+          <Typography variant="h3" component="h6" fontWeight="bold" textAlign="center" flexGrow={1}>
             Budget Pro
           </Typography>
 

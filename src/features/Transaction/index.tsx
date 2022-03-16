@@ -1,6 +1,6 @@
 // DashboardFeature entry
 
-import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import Header from 'components/Header';
 import { Route, Routes } from 'react-router-dom';
 import { database } from 'services/firebase';
@@ -10,13 +10,17 @@ const dbTransactionsRef = database.ref();
 
 function TransactionFeature() {
   return (
-    <Box>
+    <Stack
+      sx={{
+        height: '100vh',
+      }}
+    >
       <Header />
 
       <Routes>
         <Route path="" element={<TransactionPage />} />
       </Routes>
-    </Box>
+    </Stack>
   );
 }
 

@@ -16,6 +16,10 @@ const userApi = {
     return auth.signInWithEmailAndPassword(email, password);
   },
 
+  async logout() {
+    return auth.signOut();
+  },
+
   getMe() {
     const currentUser = auth.currentUser;
 
