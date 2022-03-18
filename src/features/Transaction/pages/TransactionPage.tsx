@@ -1,40 +1,40 @@
-import { Box, Paper } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTransactionsDbRef } from 'services/firebase';
 import transactionApi from 'services/transactionApi';
-import TransactionForm, { TransactionFormValues } from '../components/TransactionForm';
+import { TransactionFormValues } from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
 import TransactionPieChart from '../components/TransactionPieChart';
-import { selectTransactions } from '../selectors';
+import { selectTotalBalance, selectTransactions } from '../selectors';
 import { setTransactions } from '../transactionSlice';
 
 function TransactionPage() {
   const dispatch = useDispatch();
   const transactionList = useSelector(selectTransactions);
+  const totalBalance = useSelector(selectTotalBalance);
 
   useEffect(() => {
     (async () => {
       const transactionsDbRef = await getTransactionsDbRef();
 
-      console.log('transactionsDbRef path', transactionsDbRef.toString());
-
       transactionsDbRef.on(
         'value',
         (snapshot) => {
-          console.log('transactionsDbRef on value listener');
+          // console.log('transactionsDbRef on value listener');
           const data = snapshot.val();
-          // @ts-ignore
-          const transactionList = Object.entries(data).map(([key, value]: any) => ({
-            id: key,
-            transactionType: value.transactionType,
-            amount: value.amount,
-            category: value.category,
-            date: value.date,
-          }));
+          if (data) {
+            const transactionList = Object.entries(data).map(([key, value]: any) => ({
+              id: key,
+              transactionType: value.transactionType,
+              amount: value.amount,
+              category: value.category,
+              date: value.date,
+            }));
 
-          // console.log('snapshot', data, transactionList);
-          dispatch(setTransactions(transactionList));
+            // console.log('snapshot', data, transactionList);
+            dispatch(setTransactions(transactionList));
+          }
         },
         (error) => {
           console.log('Cannot read transactionsDbRef', error);
@@ -61,25 +61,24 @@ function TransactionPage() {
   };
 
   return (
-    <Box
+    <Stack
+      direction="row"
+      flexWrap="wrap"
       sx={{
         // flex: '1 1 auto',
-
-        display: 'flex',
-        flexFlow: 'row nowrap',
-        justifyContent: 'space-around',
-
+        justifyContent: 'center',
         overflow: 'auto',
+        p: 2,
+        paddingBottom: 0,
 
-        gap: 2,
-        '& > *': { flexBasis: '33.33%', width: '33.33%' },
+        gap: 4,
+        '& > *': { flexBasis: '45%' },
       }}
     >
       <Box>
-        <TransactionForm onSubmit={handleTransactionFormSubmit} />
+        <Typography variant="h5">Balance: ${totalBalance}</Typography>
+        <TransactionList data={transactionList} />
       </Box>
-
-      <TransactionList data={transactionList} />
 
       <Box
         sx={{
@@ -94,19 +93,23 @@ function TransactionPage() {
             flex: '1 1 auto',
             // flexBasis: '50%',
             height: '50%',
-            m: 1,
-            p: 1,
+            margin: 1,
+            padding: 1,
+
+            border: '1px solid',
+            borderColor: '#ccc',
+            borderRadius: '10px',
           },
         }}
       >
-        <Paper sx={{}} elevation={2}>
+        <Box>
           <TransactionPieChart transactionType="Income" />
-        </Paper>
-        <Paper sx={{}} elevation={2}>
+        </Box>
+        <Box>
           <TransactionPieChart transactionType="Expense" />
-        </Paper>
+        </Box>
       </Box>
-    </Box>
+    </Stack>
   );
 }
 

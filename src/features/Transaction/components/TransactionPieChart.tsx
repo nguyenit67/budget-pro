@@ -68,7 +68,9 @@ function TransactionPieChart({ transactionType }: TransactionPieChartProps) {
         backgroundColor: pieChartData.bgColors,
         borderColor: pieChartData.bgColors,
         borderWidth: 5,
-        weight: 1.2,
+      },
+      {
+        weight: 1,
       },
     ],
   };
@@ -78,7 +80,15 @@ function TransactionPieChart({ transactionType }: TransactionPieChartProps) {
   };
 
   return (
-    <Stack sx={{ height: '100%', textAlign: 'center' }}>
+    <Stack
+      sx={{
+        height: '100%',
+        textAlign: 'center',
+        // border: '1px solid',
+        // borderColor: 'grey.900',
+        // borderRadius: 'lg',
+      }}
+    >
       <Typography variant="h5" component="h3" fontWeight={400}>
         {transactionType}
       </Typography>
@@ -88,7 +98,7 @@ function TransactionPieChart({ transactionType }: TransactionPieChartProps) {
       </Typography>
 
       <Box sx={{ flexGrow: 1 }}>
-        <Pie data={data} options={options} />
+        <Pie data={data as any} options={options} />
       </Box>
     </Stack>
   );

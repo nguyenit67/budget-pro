@@ -33,6 +33,8 @@ export const TRANSACTION_CATEGORIES: Record<string, string[]> = {
 };
 
 function TransactionForm({ onSubmit, mode = 'create', defaultValues }: TransactionFormProps) {
+  // console.log('TransactionForm', defaultValues);
+
   const schema = yup.object().shape({
     transactionType: yup
       .string()
@@ -54,15 +56,13 @@ function TransactionForm({ onSubmit, mode = 'create', defaultValues }: Transacti
     date: yup.date().required('Please enter a date').typeError('Please enter a valid date'),
   });
 
-  const formDefaultValues =
-    mode === 'update'
-      ? defaultValues
-      : {
-          transactionType: TRANSACTION_TYPES.INCOME,
-          category: '',
-          amount: 0,
-          date: new Date(),
-        };
+  const formDefaultValues = {
+    transactionType: TRANSACTION_TYPES.INCOME,
+    category: 'Salary',
+    amount: 0,
+    date: new Date(),
+    ...(defaultValues ?? {}),
+  };
 
   const form = useForm({
     defaultValues: formDefaultValues,
@@ -74,6 +74,7 @@ function TransactionForm({ onSubmit, mode = 'create', defaultValues }: Transacti
   const { isSubmitting } = form.formState;
 
   useEffect(() => {
+    // console.log('TransactionForm useEffect', defaultValues);
     form.setValue('category', '');
   }, [transactionType]);
 

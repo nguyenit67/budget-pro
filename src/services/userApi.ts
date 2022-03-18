@@ -5,7 +5,6 @@ import { auth } from './firebase';
 const userApi = {
   async register(params: RegisterFormValues) {
     const { email, password, fullName } = params;
-    // Create a user
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
     // Update display name
     return userCredential.user?.updateProfile({ displayName: fullName });
@@ -27,7 +26,7 @@ const userApi = {
       id: currentUser?.uid,
       name: currentUser?.displayName,
       email: currentUser?.email,
-      photoUrl: currentUser?.photoURL,
+      photoUrl: currentUser?.photoURL || '',
     };
   },
 };

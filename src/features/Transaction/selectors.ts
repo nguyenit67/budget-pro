@@ -4,7 +4,7 @@ import { TRANSACTION_TYPES } from './components/TransactionForm';
 
 export const selectTransactions = (state: RootState) => state.transaction.transactions;
 
-export const selectBalance = createSelector(selectTransactions, (transactionList) =>
+export const selectTotalBalance = createSelector(selectTransactions, (transactionList) =>
   transactionList.reduce((total, transaction) => {
     return (
       total +

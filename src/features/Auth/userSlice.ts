@@ -20,6 +20,10 @@ export const login = createAsyncThunk('user/login', async (params: LoginFormValu
   await userApi.login(params);
 });
 
+export const logout = createAsyncThunk('user/logout', async () => {
+  await userApi.logout();
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -35,6 +39,10 @@ const userSlice = createSlice({
 
     [login.fulfilled.type]: (state) => {
       return state;
+    },
+
+    [logout.fulfilled.type]: (state) => {
+      state.current = null;
     },
   },
 });

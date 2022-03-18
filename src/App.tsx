@@ -4,6 +4,7 @@ import Register from 'features/Auth/components/Register';
 import SigninPage from 'features/Auth/pages/SigninPage';
 import { getMe } from 'features/Auth/userSlice';
 import TransactionFeature from 'features/Transaction';
+import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -16,6 +17,7 @@ function App() {
   const currentUser = useSelector((state: RootState) => state.user.current);
   const isLoggedIn = !!currentUser;
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   // for testing include Authorization header Bearer with JWT
   // useEffect(() => {
@@ -26,7 +28,7 @@ function App() {
   //     console.log('Single Product fetch', response.data);
   //   })();
   // }, []);
-  console.log('Current user here out in App.tsx', currentUser);
+  console.log('App() redux user', currentUser);
 
   useEffect(() => {
     const unsubscribeAuthObserver = auth.onAuthStateChanged(async (user) => {
@@ -36,15 +38,14 @@ function App() {
         return;
       }
 
-      console.log('Logged in user', user.displayName);
+      console.log('Logged in user in authObserver', user.displayName);
       try {
-        const actionResult = dispatch(getMe());
-        // const currentUser = unwrapResult(actionResult); // this is for async thunk action
+        dispatch(getMe());
       } catch (error: any) {
-        console.log('Failed to login ', error.message);
-        // show toast error
+        enqueueSnackbar(`Failed to login ${error.message}`, { variant: 'error' });
       }
     });
+
     return () => unsubscribeAuthObserver(); // Make sure we un-register Firebase observer when the component unmounts.
   }, []);
 

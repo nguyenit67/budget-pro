@@ -49,6 +49,7 @@ function TransactionListItem({ transaction }: TransactionListItemProps) {
           display: 'flex',
           flexFlow: 'row nowrap',
           alignItems: 'center',
+          justifyContent: 'space-around',
 
           border: '1px solid #ccc',
           borderRadius: 2,
@@ -57,21 +58,25 @@ function TransactionListItem({ transaction }: TransactionListItemProps) {
       >
         <CurrencyExchangeIcon />
 
-        <Box sx={{ flexBasis: '60%' }}>
+        <Box sx={{ flexBasis: '40%' }}>
           <Typography variant="body1">{transaction.category}</Typography>
           <Typography variant="body2">
-            ${transaction.amount}, {new Date(transaction.date).toLocaleString()}
+            {new Date(transaction.date).toLocaleString()}
             {/* use Intl.DateFormat or something */}
           </Typography>
         </Box>
 
-        <IconButton onClick={handleEditButtonClick}>
-          <EditOutlinedIcon />
-        </IconButton>
+        <Box sx={{ flexBasis: '10%' }}>
+          <Typography variant="body1">${transaction.amount}</Typography>
+        </Box>
 
-        <IconButton onClick={handleRemoveButtonClick}>
+        <Box component={IconButton} onClick={handleEditButtonClick} sx={{ flexBasis: '10%' }}>
+          <EditOutlinedIcon />
+        </Box>
+
+        <Box component={IconButton} onClick={handleRemoveButtonClick} sx={{ flexBasis: '10%' }}>
           <DeleteOutlinedIcon />
-        </IconButton>
+        </Box>
       </Box>
 
       <Dialog open={openTransactionEdit}>

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button } from '@mui/material';
+import { Box, Button, LinearProgress } from '@mui/material';
 import InputField from 'components/form-controls/InputField';
 import PasswordField from 'components/form-controls/PasswordField';
 import PropTypes from 'prop-types';
@@ -56,7 +56,7 @@ function RegisterForm({ onSubmit }: RegisterFormProps) {
 
   return (
     <Box>
-      {/* {isSubmitting && <LinearProgress className={classes.progress} />} */}
+      {isSubmitting && <LinearProgress />}
 
       <form onSubmit={form.handleSubmit(handleFormSubmit)}>
         <InputField name="fullName" label="Full Name" form={form} />

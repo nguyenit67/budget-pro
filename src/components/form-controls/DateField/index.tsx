@@ -1,18 +1,9 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { DatePicker } from '@mui/lab';
-import {
-  FormControl,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-} from '@mui/material';
-import { AuthFormValues } from '@types';
+import { FormControl, FormHelperText, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Controller, FieldError, FormState, UseFormReturn } from 'react-hook-form';
+import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
+import { BsCalendar3 } from 'react-icons/bs';
 
 interface DateFieldProps {
   form: UseFormReturn<object | any>;
@@ -55,6 +46,7 @@ function DateField(props: DateFieldProps) {
             value={value}
             onChange={(date) => onChange(date)}
             renderInput={(params) => <TextField {...params} />}
+            components={{ OpenPickerIcon: BsCalendar3 }}
           />
         )}
       />
