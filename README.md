@@ -1,4 +1,18 @@
-# ReactJS Project
+# Project Budget Pro
+
+## How to Run
+
+**Step 1**
+`npm run build` (with typescript check) or `npx vite build` (for no tsc compiler check)
+
+**Step 2**
+`firebase init`
+
+**Step 3**
+`firebase use your-firebase-project-id`
+
+**Step 4**
+`firebase deploy`
 
 ## Folder structure
 

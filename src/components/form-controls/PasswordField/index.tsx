@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import {
   FormControl,
   FormHelperText,
@@ -10,7 +10,7 @@ import {
 import { AuthFormValues } from '@types';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Controller, FieldError, FormState, UseFormReturn } from 'react-hook-form';
+import { Controller, FieldError, UseFormReturn } from 'react-hook-form';
 
 interface PasswordFieldProps {
   form: UseFormReturn<object | any>;
@@ -66,7 +66,7 @@ function PasswordField(props: PasswordFieldProps) {
                   onClick={handleClickShowPassword}
                   edge="end"
                 >
-                  {thisShowPassword ? <VisibilityOff /> : <Visibility />}
+                  {thisShowPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
                 </IconButton>
               </InputAdornment>
             }

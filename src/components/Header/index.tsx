@@ -19,15 +19,12 @@ import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import userApi from 'services/userApi';
 
 Header.propTypes = {};
 
 function Header() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
   const currentUser = useSelector((state: RootState) => state.user.current);
   const [anchorElUser, setAnchorElUser] = useState<any>(null);
   const transactionList = useSelector(selectTransactions);

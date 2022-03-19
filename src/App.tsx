@@ -68,8 +68,10 @@ function App() {
               element={<Register onSuccess={() => console.log('register successfully!!')} />}
             />
             {/* all other routes redirect to /login */}
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="" element={<Navigate to="/login" replace />} />
           </Route>
+
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       )}
       {/* all other public routes go below here */}
