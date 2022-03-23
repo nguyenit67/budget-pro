@@ -7,6 +7,7 @@ import { viteEnv } from 'utils';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// debugger;
 const firebaseConfig = {
   apiKey: viteEnv('REACTAPP_FIREBASE_API_KEY'),
   authDomain: viteEnv('REACTAPP_FIREBASE_AUTH_DOMAIN'),
@@ -17,6 +18,7 @@ const firebaseConfig = {
   measurementId: viteEnv('REACTAPP_FIREBASE_MEASUREMENT_ID'),
 };
 
+debugger;
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
