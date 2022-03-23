@@ -25,6 +25,7 @@ function Register({ onSuccess }: RegisterProps) {
       // make register action
       const action = register(values);
       const actionResult = await dispatch(action);
+      // @ts-ignore
       unwrapResult(actionResult);
       console.log('Register actionResult', actionResult);
 

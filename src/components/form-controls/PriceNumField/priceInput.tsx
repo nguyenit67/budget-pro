@@ -1,1 +1,1 @@
-React.forwardRef(render);
+export {};
